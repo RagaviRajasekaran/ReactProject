@@ -10,6 +10,7 @@ function App() {
   const [status, setStatus] = useState("Not Completed"); // Initial status
   const [showEditModal, setShowEditModal] = useState(false);
   const [editTodoId, setEditTodoId] = useState(0);
+  const [filterStatus, setFilterStatus] = useState("All"); // Filter status
 
   const addTodo = () => {
     if (taskName.trim() === "") {
@@ -54,6 +55,9 @@ function App() {
     closeEditModal();
   };
 
+
+  const filteredTodos = filterStatus === "All" ? todos : todos.filter(todo => todo.status === filterStatus);
+
   return (
     <Container className="App">
       <h1 className="text-center">My Todo</h1>
@@ -81,8 +85,27 @@ function App() {
           </Button>
         </Col>
       </Row>
+      <br/>
+      <Row className="mb-3 ">
+  <Col xs={12} sm={6}>
+    <h1>My Todos</h1>
+  </Col>
+  <Col xs={12} sm={6} className="d-flex justify-content-end align-items-center">
+    <Form.Label className="mb-0 me-2">Status Filter:</Form.Label>
+    <Form.Select
+    className="form-select-sm w-25" 
+      value={filterStatus}
+      onChange={(e) => setFilterStatus(e.target.value)}
+    >
+      <option value="All">All</option>
+      <option value="Not Completed">Not Completed</option>
+      <option value="Completed">Completed</option>
+    </Form.Select>
+  </Col>
+</Row>
+
       <Row>
-        {todos.map((todo) => (
+      {filteredTodos.map((todo) => (
           <Col xs={4} key={todo.id}>
             <Card className="mt-3">
               <Card.Body>
