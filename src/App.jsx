@@ -1,24 +1,39 @@
-import "./App.css";
-import Note from "./components/Note";
+import React, { useState } from "react";
 
-function App({notes}) {
-  return (
-    <div>
-      <div className="container p-5 bg-primary ">
-        <div className="row">
-          {notes.map((note) => (
-            <div className="col" key={note.id}>
-              <div className="card">
-                <div className="card-body">
-                  <Note note={note} />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
+import * as ReactDOM from "react-dom/client";
+import {
+    createBrowserRouter,
+    RouterProvider,
+  } from "react-router-dom";
 
-export default App
+import Cart from './components/Cart'; 
+import Home from "./components/Home";
+import products from './components/products';
+
+
+function App() {
+  const [cart, setCart] = useState([]);
+  
+  // Function to remove an item from the cart
+  const removeFromCart = (productId) => {
+    const updatedCart = cart.filter((item) => item.id !== productId);
+    setCart(updatedCart);
+  };
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home products={products} cart={cart} setCart={setCart} removeFromCart={removeFromCart} />
+    },
+    {
+      path: "/Cart", // Use lowercase 'cart'
+      element: <Cart cart={cart} removeFromCart={removeFromCart} />
+    }
+  ]);
+  
+  return(
+    <RouterProvider router={router} />
+  
+  )}
+
+export default App;
