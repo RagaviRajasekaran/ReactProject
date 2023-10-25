@@ -3,3 +3,8 @@
 *{
    font-family:'Times New Roman', Times, serif
 }
+.navbar-light .navbar-nav .nav-link:hover {
+   text-decoration: none; 
+  border-bottom: 2px solid green;
+  
+ }
