@@ -1,13 +1,26 @@
-import React from 'react';
-import ParentComponent from './components/ParentComponent';
+
 import './App.css';
+import React, { useState } from "react";
+
+import {  Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
+import CartPage from './CartPage';
+
 
 function App() {
   return (
-    <div className="App">
-      <h1>User Management App</h1>
-      <ParentComponent />
-    </div>
+    
+    <Router>
+  
+      
+       
+          <Routes>
+           
+            <Route path="/" element={<CartPage />} />
+          </Routes>
+        
+ 
+    </Router>
   );
 }
 
